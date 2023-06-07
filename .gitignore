@@ -1,5 +1,11 @@
 HELP.md
 target/
+src/main/resources/static/css
+src/main/resources/static/fonts
+src/main/resources/static/images
+src/main/resources/static/js
+src/main/resources/static/index.html
+src/main/resources/static/thank-you.html
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
