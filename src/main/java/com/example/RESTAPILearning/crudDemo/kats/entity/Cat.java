@@ -12,24 +12,44 @@ public class Cat {
     private int id;
     @Column(name="firstName")
     private String firstName;
+
     @Column(name="lastName")
     private String lastName;
-    @Column(name="email")
-    private String email;
+
+    @Column(name="occupation")
+    private String occupation;
+
+    @Column(name="imagePath")
+    private String imagePath;
+
+
 
     //define constructors
     //No-arg constructor required by JPA
     public Cat() {
 
     }
-    public Cat(String firstName, String lastName, String email) {
+    public Cat(int id, String firstName, String lastName, String occupation, String imagePath) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.email = email;
+        this.occupation = occupation;
+        this.imagePath = imagePath;
     }
 
     // define getters/setters
 
+
+    @Override
+    public String toString() {
+        return "Cat{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", occupation='" + occupation + '\'' +
+                ", imagePath='" + imagePath + '\'' +
+                '}';
+    }
 
     public int getId() {
         return id;
@@ -55,23 +75,17 @@ public class Cat {
         this.lastName = lastName;
     }
 
-    public String getEmail() {
-        return email;
+    public String getOccupation() {
+        return occupation;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setOccupation(String occupation) {
+        this.occupation = occupation;
     }
 
-    @Override
-    public String toString() {
-        return "Cat{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                '}';
-    }
+    public String getImagePath() { return imagePath; }
+
+    public void setImagePath(String imagePath) { this.imagePath = imagePath; }
 
 
 }

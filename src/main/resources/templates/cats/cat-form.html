@@ -26,14 +26,18 @@
       <!-- Hidden field to bind to the id NECESSARY because it needs to be in the body to know which cat to edit-->
       <input type="hidden" th:field="*{id}">
 
+      <!-- Hidden field for img necessary so it doesn't overwrite an existing image for this cat during edit-->
+
+      <input type="hidden" th:field="*{imagePath}">
+
       <input type="text" th:field="*{firstName}"
              class="form-control mb-4 w-25" placeholder="First name">
 
       <input type="text" th:field="*{lastName}"
              class="form-control mb-4 w-25" placeholder="Last name">
 
-      <input type="text" th:field="*{email}"
-             class="form-control mb-4 w-25" placeholder="Email">
+      <input type="text" th:field="*{occupation}"
+             class="form-control mb-4 w-25" placeholder="Occupation">
 
       <button type="submit" class="btn btn-info col-2">Save</button>
 

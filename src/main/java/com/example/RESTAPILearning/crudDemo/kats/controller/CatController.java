@@ -2,10 +2,14 @@ package com.example.RESTAPILearning.crudDemo.kats.controller;
 
 import com.example.RESTAPILearning.crudDemo.kats.dao.CatDAO;
 import com.example.RESTAPILearning.crudDemo.kats.entity.Cat;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
@@ -54,7 +58,24 @@ public class CatController {
 
     // endpoint for saving the added cat via form
     @PostMapping("/save")
-    public String saveCat(@ModelAttribute("cat") Cat theCat) {
+    public String saveCat(@ModelAttribute("cat") Cat theCat) throws JsonProcessingException {
+
+        //Get image if not there
+        System.out.println(theCat.getImagePath());
+        if(theCat.getImagePath() == null || theCat.getImagePath().length() < 3) {
+            //request random Image from cataas API as JSON string using restTemplate
+            String urlCat = "https://cataas.com/cat?json=true";
+            RestTemplate restTemplate = new RestTemplate();
+
+            String response = restTemplate.getForObject(urlCat, String.class);
+
+            // Parse it with Jackson to get url out and set it to the Cat Object path field
+            final ObjectNode node = new ObjectMapper().readValue(response, ObjectNode.class);
+
+            urlCat = "https://cataas.com" + String.valueOf(node.get("url")).replaceAll("\"", "");
+            ;
+            theCat.setImagePath(urlCat);
+        }
 
         //save the submitted Cat to the db
         catDAO.save(theCat);
